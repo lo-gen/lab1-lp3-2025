@@ -124,6 +124,12 @@ public abstract class CarTest {
     }
 
     @org.junit.jupiter.api.Test
+    public void setAngle() {
+        car.setAngle(10);
+        assertEquals(10, car.getAngle());
+    }
+
+    @org.junit.jupiter.api.Test
     public void setX() {
         car.setX(10);
         assertEquals(10, car.getX());
@@ -149,8 +155,8 @@ public abstract class CarTest {
 
     @org.junit.jupiter.api.Test
     public void move() {
-        int x = car.getX();
-        int y = car.getY();
+        double x = car.getX();
+        double y = car.getY();
         car.setCurrentSpeed(10);
         car.move();
         if (0 < Math.cos(car.getAngle())) {
@@ -172,14 +178,16 @@ public abstract class CarTest {
     @org.junit.jupiter.api.Test
     public void turnRight() {
         double angle = car.getAngle();
-        car.turnRight(2);
+        car.turnRight();
         assertTrue(car.getAngle() < angle);
     }
 
     @org.junit.jupiter.api.Test
     public void turnLeft() {
         double angle = car.getAngle();
-        car.turnLeft(4);
+        car.turnLeft();
         assertTrue(angle < car.getAngle());
     }
+
+
 }

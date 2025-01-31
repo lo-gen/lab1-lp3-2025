@@ -7,8 +7,8 @@ public abstract class Car implements Movable{
     private double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     private String modelName; // The car model name
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private double angle;
 
     public Car(int nrDoors, double enginePower, Color color, String modelName){
@@ -70,7 +70,7 @@ public abstract class Car implements Movable{
 
     // TODO fix this method according to lab pm
     public void gas(double amount){
-        amount = Math.min(1, Math.max(0, amount));
+        amount = Math.min(1, Math.max(0, amount));  //Math.clamp(0, 1, amount)
         incrementSpeed(amount);
     }
 
@@ -80,11 +80,11 @@ public abstract class Car implements Movable{
         decrementSpeed(amount);
     }
 
-    protected void setX(int x){
+    protected void setX(double x){
         this.x = x;
     }
 
-    protected void setY(int y){
+    protected void setY(double y){
         this.y = y;
     }
 
@@ -92,11 +92,11 @@ public abstract class Car implements Movable{
         this.angle = angle;
     }
 
-    public int getX(){
+    public double getX(){
         return x;
     }
 
-    public int getY(){
+    public double getY(){
         return y;
     }
 
@@ -106,17 +106,17 @@ public abstract class Car implements Movable{
 
     @Override
     public void move(){
-        x += (int)(currentSpeed * Math.cos(angle));
-        y += (int)(currentSpeed * Math.sin(angle));
+        x += currentSpeed * Math.cos(angle);
+        y += currentSpeed * Math.sin(angle);
     }
 
     @Override
-    public void turnRight(int amount) {
-        angle -= amount * Math.PI / 180;     //5 degrees
+    public void turnRight() {
+        angle -= 5 * Math.PI / 180;     //amount degrees
     }
 
     @Override
-    public void turnLeft(int amount){
-        angle += amount * Math.PI / 180;     //5 degrees
+    public void turnLeft(){
+        angle += 5 * Math.PI / 180;     //amount degrees
     }
 }
