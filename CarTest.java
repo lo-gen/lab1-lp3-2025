@@ -1,93 +1,185 @@
+import org.junit.jupiter.api.BeforeEach;
+
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CarTest {
+public abstract class CarTest {
+    private Car car;
 
-    @org.junit.jupiter.api.Test
-    void getNrDoors() {
-
+    public CarTest(Car car){
+        this.car = car;
     }
 
     @org.junit.jupiter.api.Test
-    void setNrDoors() {
+    public void getNrDoors() {
+        car.setNrDoors(5);
+        assertEquals(5, car.getNrDoors());
     }
 
     @org.junit.jupiter.api.Test
-    void getEnginePower() {
+    public void setNrDoors() {
+        car.setNrDoors(3);
+        assertEquals(3, car.getNrDoors());
     }
 
     @org.junit.jupiter.api.Test
-    void setEnginePower() {
+    public void getEnginePower() {
+        car.setEnginePower(100);
+        assertEquals(100, car.getEnginePower());
     }
 
     @org.junit.jupiter.api.Test
-    void getCurrentSpeed() {
+    public void setEnginePower() {
+        car.setEnginePower(69);
+        assertEquals(69, car.getEnginePower());
+    }
+    @org.junit.jupiter.api.Test
+    public void getCurrentSpeed() {
+        car.setCurrentSpeed(5);
+        assertEquals(5, car.getCurrentSpeed());
     }
 
     @org.junit.jupiter.api.Test
-    void setCurrentSpeed() {
+    public void setCurrentSpeed() {
+        car.setCurrentSpeed(50);
+        assertEquals(50, car.getCurrentSpeed());
     }
 
     @org.junit.jupiter.api.Test
-    void getColor() {
+    public void getColor() {
+        car.setColor(Color.BLUE);
+        assertEquals(Color.BLUE, car.getColor());
     }
 
     @org.junit.jupiter.api.Test
-    void setColor() {
+    public void setColor() {
+        car.setColor(Color.PINK);
+        assertEquals(Color.PINK, car.getColor());
     }
 
     @org.junit.jupiter.api.Test
-    void startEngine() {
+    public void startEngine() {
+        car.stopEngine();
+        car.startEngine();
+        assertTrue(0 < car.getCurrentSpeed());
     }
 
     @org.junit.jupiter.api.Test
-    void stopEngine() {
+    public void stopEngine() {
+        car.startEngine();
+        car.stopEngine();
+        assertEquals(0, car.getCurrentSpeed());
     }
 
     @org.junit.jupiter.api.Test
-    void speedFactor() {
+    public abstract void speedFactor();
+
+    @org.junit.jupiter.api.Test
+    public void incrementSpeed() {
+        double speed = car.getCurrentSpeed();
+        car.gas(5);
+        if (speed < car.getEnginePower()){
+            assertTrue(speed < car.getCurrentSpeed());
+            assertFalse(car.getEnginePower() < car.getCurrentSpeed());
+        } else {
+            assertEquals(speed, car.getCurrentSpeed());
+        }
     }
 
     @org.junit.jupiter.api.Test
-    void incrementSpeed() {
+    public void decrementSpeed() {
+        double speed = car.getCurrentSpeed();
+        car.brake(5);
+        if (0 < speed){
+            assertTrue( car.getCurrentSpeed() < speed);
+            assertFalse(car.getCurrentSpeed() < 0);
+        } else {
+            assertEquals(0, car.getCurrentSpeed());
+        }
     }
 
     @org.junit.jupiter.api.Test
-    void decrementSpeed() {
+    public void gas() {
+        double speed = car.getCurrentSpeed();
+        car.gas(0.5);
+        if (speed < car.getEnginePower()){
+            assertTrue(speed < car.getCurrentSpeed());
+            assertFalse(car.getEnginePower() < car.getCurrentSpeed());
+        } else {
+            assertEquals(speed, car.getCurrentSpeed());
+        }
     }
 
     @org.junit.jupiter.api.Test
-    void gas() {
+    public void brake() {
+        double speed = car.getCurrentSpeed();
+        car.brake(0.3);
+        if (0 < speed){
+            assertTrue(speed < car.getCurrentSpeed());
+            assertFalse(car.getCurrentSpeed() < 0);
+        } else {
+            assertEquals(0, car.getCurrentSpeed());
+        }
     }
 
     @org.junit.jupiter.api.Test
-    void brake() {
+    public void setX() {
+        car.setX(10);
+        assertEquals(10, car.getX());
     }
 
     @org.junit.jupiter.api.Test
-    void setX() {
+    public void setY() {
+        car.setY(20);
+        assertEquals(20, car.getY());
     }
 
     @org.junit.jupiter.api.Test
-    void setY() {
+    public void getX() {
+        car.setX(15);
+        assertEquals(15, car.getX());
     }
 
     @org.junit.jupiter.api.Test
-    void getX() {
+    public void getY() {
+        car.setY(30);
+        assertEquals(30, car.getY());
     }
 
     @org.junit.jupiter.api.Test
-    void getY() {
+    public void move() {
+        int x = car.getX();
+        int y = car.getY();
+        car.setCurrentSpeed(10);
+        car.move();
+        if (0 < Math.cos(car.getAngle())) {
+            assertTrue(x < car.getX());
+        } else if (Math.cos(car.getAngle()) < 0) {
+            assertTrue(car.getX() < x);
+        } else {
+            assertEquals(x, car.getX());
+        }
+        if (0 < Math.sin(car.getAngle())) {
+            assertTrue(y < car.getY());
+        } else if (Math.sin(car.getAngle()) < 0) {
+            assertTrue(car.getY() < y);
+        } else {
+            assertEquals(y, car.getY());
+        }
     }
 
     @org.junit.jupiter.api.Test
-    void move() {
+    public void turnRight() {
+        double angle = car.getAngle();
+        car.turnRight(2);
+        assertTrue(car.getAngle() < angle);
     }
 
     @org.junit.jupiter.api.Test
-    void turnRight() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void turnLeft() {
+    public void turnLeft() {
+        double angle = car.getAngle();
+        car.turnLeft(4);
+        assertTrue(angle < car.getAngle());
     }
 }

@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Car implements Movable{
+public abstract class Car implements Movable{
 
     private int nrDoors; // Number of doors on the car
     private double enginePower; // Engine power of the car
@@ -39,7 +39,7 @@ public class Car implements Movable{
     }
 
     protected void setCurrentSpeed(double currentSpeed){
-        this.currentSpeed = currentSpeed;
+        this.currentSpeed = Math.min(enginePower, currentSpeed);
     }
 
     public Color getColor(){
@@ -58,25 +58,25 @@ public class Car implements Movable{
         currentSpeed = 0;
     }
 
-    protected double speedFactor(){
-        return enginePower * 0.01;
-    }
+    protected abstract double speedFactor();
 
-    protected void incrementSpeed(double amount){
+    private void incrementSpeed(double amount){
         currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
     }
 
-    public void decrementSpeed(double amount){
+    private void decrementSpeed(double amount){
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
 
     // TODO fix this method according to lab pm
     public void gas(double amount){
+        amount = Math.min(1, Math.max(0, amount));
         incrementSpeed(amount);
     }
 
     // TODO fix this method according to lab pm
     public void brake(double amount){
+        amount = Math.min(1, Math.max(0, amount));
         decrementSpeed(amount);
     }
 
@@ -88,12 +88,20 @@ public class Car implements Movable{
         this.y = y;
     }
 
+    protected void setAngle(double angle){
+        this.angle = angle;
+    }
+
     public int getX(){
         return x;
     }
 
     public int getY(){
         return y;
+    }
+
+    public double getAngle(){
+        return angle;
     }
 
     @Override
@@ -103,12 +111,12 @@ public class Car implements Movable{
     }
 
     @Override
-    public void turnRight() {
-        angle -= 5 * Math.PI / 180;     //5 degrees
+    public void turnRight(int amount) {
+        angle -= amount * Math.PI / 180;     //5 degrees
     }
 
     @Override
-    public void turnLeft(){
-        angle += 5*Math.PI/180;     //5 degrees
+    public void turnLeft(int amount){
+        angle += amount * Math.PI / 180;     //5 degrees
     }
 }
