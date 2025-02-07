@@ -1,15 +1,15 @@
 import java.awt.*;
 
-public abstract class Car implements Movable{
+public abstract class Car implements IMovable {
 
     private int nrDoors; // Number of doors on the car
     private double enginePower; // Engine power of the car
     private double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     private String modelName; // The car model name
-    private double x;
-    private double y;
-    private double angle;
+    private double xPos;
+    private double yPos;
+    private double positionAngle;
 
     public Car(int nrDoors, double enginePower, Color color, String modelName){
         this.nrDoors = nrDoors;
@@ -50,6 +50,14 @@ public abstract class Car implements Movable{
         this.color = color;
     }
 
+    public String getModelName(){
+        return modelName;
+    }
+
+    protected void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
     public void startEngine(){
         currentSpeed = 0.1;
     }
@@ -68,55 +76,62 @@ public abstract class Car implements Movable{
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
 
-    // TODO fix this method according to lab pm
     public void gas(double amount){
         amount = Math.min(1, Math.max(0, amount));  //Math.clamp(0, 1, amount)
         incrementSpeed(amount);
     }
 
-    // TODO fix this method according to lab pm
     public void brake(double amount){
         amount = Math.min(1, Math.max(0, amount));
         decrementSpeed(amount);
     }
 
-    protected void setX(double x){
-        this.x = x;
+    protected void setX(double xPos){
+        this.xPos = xPos;
     }
 
-    protected void setY(double y){
-        this.y = y;
+    protected void setY(double yPos){
+        this.yPos = yPos;
     }
 
-    protected void setAngle(double angle){
-        this.angle = angle;
+    protected void setXY(double xPos, double yPos){
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
+
+    protected void setAngle(double positionAngle){
+        this.positionAngle = positionAngle;
     }
 
     public double getX(){
-        return x;
+        return xPos;
     }
 
     public double getY(){
-        return y;
+        return yPos;
+    }
+
+    public double[] getXY() {
+        return new double[]{xPos, yPos};
     }
 
     public double getAngle(){
-        return angle;
+        return positionAngle;
     }
 
     @Override
     public void move(){
-        x += currentSpeed * Math.cos(angle);
-        y += currentSpeed * Math.sin(angle);
+        xPos += currentSpeed * Math.cos(positionAngle);
+        yPos += currentSpeed * Math.sin(positionAngle);
     }
 
     @Override
     public void turnRight() {
-        angle -= 5 * Math.PI / 180;     //amount degrees
+        positionAngle -= 5 * Math.PI / 180;     //amount degrees
     }
 
     @Override
     public void turnLeft(){
-        angle += 5 * Math.PI / 180;     //amount degrees
+        positionAngle += 5 * Math.PI / 180;     //amount degrees
     }
 }
