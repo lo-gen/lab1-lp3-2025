@@ -1,5 +1,8 @@
-import java.awt.*;
 
-public class Truck {
+public abstract class Truck implements IAccess, ITruckBed, IVehicle{
+
+
+
+    public Truck(){}
 
 }
