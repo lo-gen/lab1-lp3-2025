@@ -1,2 +1,2 @@
-public interface IPassagerCar extends IPosition{
+public interface IPassagerCar extends IPosition, ICar{
 }

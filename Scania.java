@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Car implements ITruckBed {
+public class Scania extends Car implements ITruckBed, ITruck {
 
     private int rampAngle = 0;
 

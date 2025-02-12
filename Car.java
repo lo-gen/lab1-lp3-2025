@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Car implements IMovable {
+public abstract class Car implements IMovable, ICar{
 
     private int nrDoors; // Number of doors on the car
     private double enginePower; // Engine power of the car

@@ -1,4 +1,4 @@
-public class Garage<carType extends Car>{
+public class Garage<carType extends ICar>{
     private final StorageUnit<carType> myGarage;
     private final double xPos;
     private final double yPos;

@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class CarTransport<carType extends IPassagerCar> extends Car{
+public class CarTransport<carType extends IPassagerCar> extends Car implements ITruck{
     private StorageUnit<carType> storage;
     private boolean rampUp;
 
