@@ -1,5 +1,5 @@
 public interface ITruckBed {
-    void rampUp();
-    void rampDown();
-    
+    void rampUp(int amount);
+    void rampDown(int amount);
+
 }

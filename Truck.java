@@ -1,5 +1,5 @@
 
-public abstract class Truck implements IAccess, ITruckBed, IVehicle{
+public abstract class Truck implements IVehicle{
 
 
 

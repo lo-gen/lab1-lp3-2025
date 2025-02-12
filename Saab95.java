@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab95 extends Car implements IVehicle{
+public class Saab95 extends Car{
 
     private boolean turboOn;
 
@@ -30,9 +30,9 @@ public class Saab95 extends Car implements IVehicle{
 
     public static void main(String[] args) {
         Saab95 Car1 = new Saab95();  // Object 1
-        System.out.println("Gas not applied: " + Car1.currentSpeed); // Print the result
+        System.out.println("Gas not applied: " + Car1.getCurrentSpeed()); // Print the result
         Car1.gas(10); // Call gas method and store the result
-        System.out.println("Gas applied: " + Car1.currentSpeed); // Print the result
+        System.out.println("Gas applied: " + Car1.getCurrentSpeed()); // Print the result
 
         // Test turbo functionality
         Car1.setTurboOn();

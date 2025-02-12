@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
@@ -130,48 +131,48 @@ public abstract class CarTest {
     }
 
     @org.junit.jupiter.api.Test
-    public void setX() {
-        car.setX(10);
-        assertEquals(10, car.getX());
+    public void setXPos() {
+        car.setXPos(10);
+        assertEquals(10, car.getXPos());
+    }
+
+    @Test
+    public void setYPos() {
+        car.setYPos(20);
+        assertEquals(20, car.getYPos());
     }
 
     @org.junit.jupiter.api.Test
-    public void setY() {
-        car.setY(20);
-        assertEquals(20, car.getY());
+    public void getXPos() {
+        car.setXPos(15);
+        assertEquals(15, car.getXPos());
     }
 
     @org.junit.jupiter.api.Test
-    public void getX() {
-        car.setX(15);
-        assertEquals(15, car.getX());
-    }
-
-    @org.junit.jupiter.api.Test
-    public void getY() {
-        car.setY(30);
-        assertEquals(30, car.getY());
+    public void getYPos() {
+        car.setYPos(30);
+        assertEquals(30, car.getYPos());
     }
 
     @org.junit.jupiter.api.Test
     public void move() {
-        double x = car.getX();
-        double y = car.getY();
+        double x = car.getXPos();
+        double y = car.getYPos();
         car.setCurrentSpeed(10);
         car.move();
         if (0 < Math.cos(car.getAngle())) {
-            assertTrue(x < car.getX());
+            assertTrue(x < car.getXPos());
         } else if (Math.cos(car.getAngle()) < 0) {
-            assertTrue(car.getX() < x);
+            assertTrue(car.getXPos() < x);
         } else {
-            assertEquals(x, car.getX());
+            assertEquals(x, car.getXPos());
         }
         if (0 < Math.sin(car.getAngle())) {
-            assertTrue(y < car.getY());
+            assertTrue(y < car.getYPos());
         } else if (Math.sin(car.getAngle()) < 0) {
-            assertTrue(car.getY() < y);
+            assertTrue(car.getYPos() < y);
         } else {
-            assertEquals(y, car.getY());
+            assertEquals(y, car.getYPos());
         }
     }
 

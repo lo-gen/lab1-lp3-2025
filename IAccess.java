@@ -1,6 +1,5 @@
-public interface IAccess extends IStorageUnit{
+public interface IAccess{
     boolean getAccesStatus();
     void accessOn();
     void accessOff();
-    
 }
