@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class CarTransport<carType extends Car> extends Car{
+public class CarTransport<carType extends IPassagerCar> extends Car{
     private StorageUnit<carType> storage;
     private boolean rampUp;
 
@@ -37,14 +37,36 @@ public class CarTransport<carType extends Car> extends Car{
         return storage.getSpaceLeft();
     }
 
-    protected  void addCar(carType car){
-        if (getSpaceLeft() > 0 && !rampUp)
+    private double distanceBetween(carType car){
+        return Math.sqrt(Math.pow(car.getXPos() - getXPos(), 2) + Math.pow(car.getYPos() - getYPos(), 2));
+    }
+
+    protected void addCar(carType car){
+        if (getSpaceLeft() > 0 && !rampUp && distanceBetween(car) < 6.9){
             storage.addItem(car);
+            car.setXYPos(getXPos(), getYPos());
+        }
     }
 
     protected void removeCar(){
-        if (!rampUp)
+        if (!rampUp) {
+            storage.getItems().get(storage.getSpaceUsed() - 1).setXYPos(getXPos() + 2, getYPos());
             storage.removeLastItem();
+        }
+    }
+
+    @Override
+    public void gas(double amount){
+        if (rampUp)
+            super.gas(amount);
+    }
+
+    @Override
+    public void move(){
+        super.move();
+        for (carType car : storage.getItems()){
+            car.setXYPos(getXPos(), getYPos());
+        }
     }
 }
 

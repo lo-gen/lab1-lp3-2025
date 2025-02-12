@@ -18,8 +18,13 @@ public class StorageUnit<storageType>{
     }
 
     protected void addItem(storageType item){
-        if (getSpaceLeft() > 0)
+        if (getSpaceLeft() > 0) {
+            for (storageType i : storage) {
+                if (i == item)
+                    return;
+            }
             storage.add(item);
+        }
     }
 
     protected void removeFirstItem(){
@@ -32,5 +37,9 @@ public class StorageUnit<storageType>{
 
     protected void removeSpecificItem(storageType item){
         storage.remove(item);
+    }
+
+    protected ArrayList<storageType> getItems(){
+        return storage;
     }
 }

@@ -86,15 +86,15 @@ public abstract class Car implements IMovable {
         decrementSpeed(amount);
     }
 
-    protected void setXPos(double xPos){
+    public void setXPos(double xPos){
         this.xPos = xPos;
     }
 
-    protected void setYPos(double yPos){
+    public void setYPos(double yPos){
         this.yPos = yPos;
     }
 
-    protected void setXYPos(double xPos, double yPos){
+    public void setXYPos(double xPos, double yPos){
         this.xPos = xPos;
         this.yPos = yPos;
     }

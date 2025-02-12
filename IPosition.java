@@ -1,7 +1,7 @@
 public interface IPosition {
     void setXPos(double X);
     void setYPos(double Y);
-    void setXYPos(double X, double Y);
-    double getXPos();
-    double getYPos();
+    public void setXYPos(double X, double Y);
+    public double getXPos();
+    public double getYPos();
 }
