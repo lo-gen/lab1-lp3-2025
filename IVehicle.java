@@ -26,5 +26,4 @@ public interface IVehicle extends IMovable {
     double getY();
     double[] getXY();
     double getAngle();
-
 }

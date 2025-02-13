@@ -21,8 +21,11 @@ public class Scania extends Car implements ITruckBed, ITruck {
     public void rampDown(int amount) {
         if (rampAngle - amount > 0)
             rampAngle -= amount;
-        else
+        else {
             rampAngle = 0;
+            throw new IllegalStateException("Ramp is all the way down");
+        }
+
     }
 
     @Override
@@ -31,9 +34,10 @@ public class Scania extends Car implements ITruckBed, ITruck {
             return;
         if (rampAngle + amount < 70)
             rampAngle += amount;
-        else
+        else {
             rampAngle = 70;
-
+            throw new IllegalStateException("Ramp is all the way up");
+        }
     }
 
     @Override public double speedFactor(){
@@ -42,7 +46,10 @@ public class Scania extends Car implements ITruckBed, ITruck {
 
     @Override
     public void gas(double amount){
-        if (rampAngle == 0)
+        if (rampAngle == 0) {
             super.gas(amount);
+        } else {
+            throw new IllegalStateException("Can't gas when ramp is up");
+        }
     }
 }

@@ -24,7 +24,8 @@ class Saab95Test extends CarTest{
     }
 
     @Test
-    @Override public void speedFactor() {
+    @Override
+    void testSpeedFactor() {
         if (saab.getTurboOn()){
             assertEquals(saab.getEnginePower() * 0.01 * 1.3, saab.speedFactor());
         } else {

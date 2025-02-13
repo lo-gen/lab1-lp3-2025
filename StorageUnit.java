@@ -27,16 +27,18 @@ public class StorageUnit<storageType>{
         }
     }
 
-    protected void removeFirstItem(){
-        storage.removeFirst();
+    protected storageType removeFirstItem(){
+        return storage.removeFirst();
     }
 
-    protected void removeLastItem(){
-        storage.removeLast();
+    protected storageType removeLastItem(){
+        return storage.removeLast();
     }
 
     protected void removeSpecificItem(storageType item){
-        storage.remove(item);
+        if (storage.contains(item)) {
+            storage.remove(item);
+        }
     }
 
     protected ArrayList<storageType> getItems(){

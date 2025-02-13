@@ -10,6 +10,7 @@ public abstract class Car implements IMovable, ICar{
     private double xPos;
     private double yPos;
     private double positionAngle;
+    private boolean isStored = false;
 
     public Car(int nrDoors, double enginePower, Color color, String modelName){
         this.nrDoors = nrDoors;
@@ -24,6 +25,18 @@ public abstract class Car implements IMovable, ICar{
 
     protected void setNrDoors(int nrDoors){
         this.nrDoors = nrDoors;
+    }
+
+    public void setIsStoredTrue() {
+        isStored = true;
+    }
+
+    public void setIsStoredFalse() {
+        isStored = false;
+    }
+
+    public boolean getIsStored() {
+        return isStored;
     }
 
     public double getEnginePower(){
@@ -54,10 +67,6 @@ public abstract class Car implements IMovable, ICar{
         return modelName;
     }
 
-    protected void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
     public void startEngine(){
         currentSpeed = 0.1;
     }
@@ -77,13 +86,21 @@ public abstract class Car implements IMovable, ICar{
     }
 
     public void gas(double amount){
-        amount = Math.min(1, Math.max(0, amount));  //Math.clamp(0, 1, amount)
-        incrementSpeed(amount);
+        if (isStored) {
+            throw new IllegalStateException("Can't drive while stored");
+        } else {
+            amount = Math.min(1, Math.max(0, amount));  //Math.clamp(0, 1, amount)
+            incrementSpeed(amount);
+        }
     }
 
     public void brake(double amount){
-        amount = Math.min(1, Math.max(0, amount));
-        decrementSpeed(amount);
+        if (isStored) {
+            throw new IllegalStateException("Can't brake while stored");
+        } else {
+            amount = Math.min(1, Math.max(0, amount));
+            decrementSpeed(amount);
+        }
     }
 
     public void setXPos(double xPos){
@@ -116,9 +133,13 @@ public abstract class Car implements IMovable, ICar{
     }
 
     @Override
-    public void move(){
-        xPos += currentSpeed * Math.cos(positionAngle);
-        yPos += currentSpeed * Math.sin(positionAngle);
+    public void move() {
+        if (!isStored) {
+            throw new IllegalStateException("Can't move while stored");
+        } else {
+            xPos += currentSpeed * Math.cos(positionAngle);
+            yPos += currentSpeed * Math.sin(positionAngle);
+        }
     }
 
     @Override

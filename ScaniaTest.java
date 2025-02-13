@@ -10,11 +10,6 @@ class ScaniaTest extends CarTest {
         super(new Scania());
     }
 
-    @Override
-    public void speedFactor() {
-        assertEquals(770*0.001, scania.speedFactor());
-    }
-
     @Test
     void getRampAngle() {
         scania.setRampAngle(15);

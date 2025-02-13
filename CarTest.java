@@ -74,7 +74,7 @@ public abstract class CarTest {
     }
 
     @org.junit.jupiter.api.Test
-    public abstract void speedFactor();
+    abstract void testSpeedFactor();
 
     @org.junit.jupiter.api.Test
     public void incrementSpeed() {
@@ -142,6 +142,13 @@ public abstract class CarTest {
         assertEquals(20, car.getYPos());
     }
 
+    @Test
+    public void testSetXYPos() {
+        car.setXYPos(20,15);
+        assertEquals(20,car.getXPos());
+        assertEquals(15,car.getYPos());
+    }
+
     @org.junit.jupiter.api.Test
     public void getXPos() {
         car.setXPos(15);
@@ -190,5 +197,9 @@ public abstract class CarTest {
         assertTrue(angle < car.getAngle());
     }
 
+    @org.junit.jupiter.api.Test
+    public void getModelName(){
+        car.getModelName();
+    }
 
 }

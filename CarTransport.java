@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CarTransport<carType extends IPassagerCar> extends Car implements ITruck{
     private StorageUnit<carType> storage;
@@ -21,8 +22,11 @@ public class CarTransport<carType extends IPassagerCar> extends Car implements I
     }
 
     protected void rampDown(){
-        if (getCurrentSpeed() == 0)
+        if (0 < getCurrentSpeed()) {
+            throw new IllegalStateException("Can't lower ramp when moving");
+        } else {
             rampUp = false;
+        }
     }
 
     public boolean getRampUpStatus(){
@@ -42,23 +46,43 @@ public class CarTransport<carType extends IPassagerCar> extends Car implements I
     }
 
     protected void addCar(carType car){
-        if (getSpaceLeft() > 0 && !rampUp && distanceBetween(car) < 6.9){
+        if (6.9 < distanceBetween(car)) {
+            throw new IllegalStateException("Car is too far away");
+        } else if (rampUp) {
+            throw new IllegalStateException("Can't load when ramp is up");
+        } else if (getSpaceLeft() == 0) {
+            throw new IllegalStateException("Storage is full");
+        } else {
             storage.addItem(car);
             car.setXYPos(getXPos(), getYPos());
+            car.setIsStoredTrue();
         }
     }
 
-    protected void removeCar(){
-        if (!rampUp) {
-            storage.getItems().get(storage.getSpaceUsed() - 1).setXYPos(getXPos() + 2, getYPos());
-            storage.removeLastItem();
+    protected carType removeCar(){
+        if (rampUp){
+            throw new IllegalStateException("Can't unload when ramp is up");
+        } else if (getSpaceUsed() == 0) {
+            throw new IllegalStateException("There is no car to unload");
+        } else {
+            carType car = storage.removeLastItem();
+            car.setIsStoredFalse();
+            car.setXYPos(getXPos() + 2, getYPos());
+            return car;
         }
+    }
+
+    protected ArrayList<carType> getCars(){
+        return storage.getItems();
     }
 
     @Override
     public void gas(double amount){
-        if (rampUp)
+        if (!rampUp) {
+            throw new IllegalStateException("Can't drive when ramp is down");
+        } else {
             super.gas(amount);
+        }
     }
 
     @Override

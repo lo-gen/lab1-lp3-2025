@@ -10,7 +10,8 @@ class Volvo240Test extends CarTest{
     }
 
     @Test
-    @Override public void speedFactor() {
+    @Override
+    void testSpeedFactor() {
         assertEquals(volvo.getEnginePower() * 0.01 * 1.25, volvo.speedFactor());
     }
 }
